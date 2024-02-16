@@ -1,6 +1,6 @@
 pipeline {
 
-    agent {label 'Jenkins-Agent'}
+    agent any
 
     stages {
         stage('Cleanup Workspace') {
@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout from SCM') {
             steps {
-                git branch: 'master', credentialsId: 'github', url: 'https://github.com/Nhathuy1305/Thesis-Report-Management-System'
+                git branch: 'master', credentialsId: 'github', url: 'https://github.com/Nhathuy1305/Thesis-Report-Management-System-CD.git'
             }
         }
 
@@ -68,7 +68,7 @@ pipeline {
                             git commit -m "Updated Deployment Manifest"
                         """
                         withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                            sh "git push https://github.com/Nhathuy1305/Thesis-Report-Management-Syste, master"
+                            sh "git push https://github.com/Nhathuy1305/Thesis-Report-Management-System-CD.git master"
                         }
                     }
                 }
