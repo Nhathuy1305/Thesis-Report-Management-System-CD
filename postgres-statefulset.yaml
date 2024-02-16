@@ -15,9 +15,6 @@ spec:
       labels:
         app: postgresql
     spec:
-      securityContext:
-        runAsUser: 999
-        fsGroup: 999
       containers:
         - name: postgresql
           image: postgres:11
@@ -44,9 +41,6 @@ spec:
                 configMapKeyRef:
                   name: services-config
                   key: POSTGRES_PASSWORD
-
-            - name: PGDATA
-              value: /var/lib/postgresql/data/postgredata
 
   volumeClaimTemplates:
     - metadata:
