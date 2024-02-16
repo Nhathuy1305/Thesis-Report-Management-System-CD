@@ -16,6 +16,7 @@ kind: Service
 metadata:
   name: chapter-title-service
 spec:
+  type: ClusterIP
   selector:
     app: chapter-title
   ports:
@@ -84,8 +85,9 @@ spec:
   selector:
     app: rest-service
   ports:
-    - protocol: TCP
-      port: 5000
+    - name: http
+      protocol: TCP
+      port: 80
       targetPort: 5000
 ---
 apiVersion: v1
