@@ -16,13 +16,10 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: rabbitmq
+          image: rabbitmq:3-management
           ports:
             - containerPort: 5672
           env:
-            - name: RABBITMQ_NODENAME
-              value: k8s-thesis
-
             - name: RABBITMQ_DEFAULT_USER
               valueFrom:
                 configMapKeyRef:

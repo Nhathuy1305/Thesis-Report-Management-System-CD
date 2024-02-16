@@ -16,7 +16,6 @@ kind: Service
 metadata:
   name: chapter-title-service
 spec:
-  type: ClusterIP
   selector:
     app: chapter-title
   ports:
