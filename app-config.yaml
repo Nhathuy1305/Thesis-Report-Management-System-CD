@@ -8,6 +8,7 @@ data:
   RABBITMQ_USER: "guest"
   RABBITMQ_PASSWORD: "guest"
   POSTGRES_HOST: "postgresql"
+  POSTGRES_CONNECTION_STRING: "postgresql://postgres:123456@postgresql:5432/thesis_upload"
   POSTGRES_PORT: "5432"
   POSTGRES_USER: "postgres"
   POSTGRES_PASSWORD: "123456"

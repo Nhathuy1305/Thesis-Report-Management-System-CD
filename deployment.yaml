@@ -262,7 +262,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: services-config
-                key: POSTGRES_HOST
+                key: POSTGRES_CONNECTION_STRING
 
           - name: POSTGRES_USER
             valueFrom:
