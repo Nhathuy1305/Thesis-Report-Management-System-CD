@@ -288,11 +288,11 @@ spec:
                 name: services-config
                 key: ROOT_DIR
 
-          - name: SERVICE_LIST
+          - name: REACT_APP_SERVICE_LIST
             valueFrom:
               configMapKeyRef:
                 name: app-config
-                key: SERVICE_LIST
+                key: REACT_APP_SERVICE_LIST
 
           - name: GUIDELINES_LIST
             value: "chapter_title,format_check,page_count"
