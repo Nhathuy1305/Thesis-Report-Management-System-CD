@@ -81,6 +81,7 @@ kind: Service
 metadata:
   name: rest-service
 spec:
+  type: LoadBalancer
   selector:
     app: rest-backend
   ports:
