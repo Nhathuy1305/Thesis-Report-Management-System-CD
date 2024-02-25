@@ -311,7 +311,11 @@ spec:
         volumeMounts:
         - name: google-credentials
           mountPath: /run/secrets/gcp-credentials
-          subPath: gcp-credentials
+          subPath: google_credentials.json
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
 ---
 apiVersion: apps/v1
 kind: Deployment
