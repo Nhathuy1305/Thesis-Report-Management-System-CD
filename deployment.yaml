@@ -308,6 +308,10 @@ spec:
               configMapKeyRef:
                 name: services-config
                 key: GOOGLE_APPLICATION_CREDENTIALS
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /run/secrets/gcp-credentials
+          subPath: gcp-credentials
 ---
 apiVersion: apps/v1
 kind: Deployment
