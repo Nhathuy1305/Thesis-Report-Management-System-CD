@@ -1,13 +1,3 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-parameters:
-  type: gp2
-reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
