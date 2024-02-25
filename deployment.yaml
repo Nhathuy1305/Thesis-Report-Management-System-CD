@@ -239,6 +239,14 @@ spec:
         image: daniel135dang/rest:latest
         ports:
         - containerPort: 5000
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /run/secrets/gcp-credentials
+          subPath: google_credentials.json
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
         env:
           - name: PORT
             value: "5000"
@@ -308,14 +316,6 @@ spec:
               configMapKeyRef:
                 name: services-config
                 key: GOOGLE_APPLICATION_CREDENTIALS
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials
-          subPath: google_credentials.json
-      volumes:
-      - name: google-credentials
-        secret:
-          secretName: google-credentials
 ---
 apiVersion: apps/v1
 kind: Deployment
