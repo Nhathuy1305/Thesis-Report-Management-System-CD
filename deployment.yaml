@@ -34,7 +34,7 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
 ---
 apiVersion: apps/v1
@@ -73,7 +73,7 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
 ---
 apiVersion: apps/v1
@@ -112,7 +112,7 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
 ---
 apiVersion: apps/v1
@@ -176,7 +176,7 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
 ---
 apiVersion: apps/v1
@@ -215,7 +215,7 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
 ---
 apiVersion: apps/v1
@@ -308,14 +308,6 @@ spec:
               configMapKeyRef:
                 name: services-config
                 key: GOOGLE_APPLICATION_CREDENTIALS
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
-          subPath: google_credentials.json
-      volumes:
-      - name: google-credentials
-        secret:
-          secretName: google-credentials
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -353,7 +345,7 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
 ---
 apiVersion: apps/v1
@@ -392,5 +384,5 @@ spec:
 
         volumeMounts:
         - name: google-credentials
-          mountPath: /run/secrets/gcp-credentials/google_credentials.json
+          mountPath: /app/google_credentials.json
           subPath: google_credentials.json
