@@ -235,6 +235,10 @@ spec:
         app: rest-backend
     spec:
       volumes:
+      - name: rest-file
+        hostPath:
+          path: /app/rest/files
+          type: DirectoryOrCreate
       - name: google-credentials
         secret:
           secretName: google-credentials
@@ -243,6 +247,9 @@ spec:
         image: daniel135dang/rest:latest
         ports:
         - containerPort: 5000
+        volumeMounts:
+        - name: rest-files
+          mountPath: /app/rest/files
         env:
           - name: PORT
             value: "5000"
