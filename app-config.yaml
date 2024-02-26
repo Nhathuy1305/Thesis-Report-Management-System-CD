@@ -13,5 +13,4 @@ data:
   POSTGRES_PASSWORD: "123456"
   POSTGRES_DB: "thesis_upload"
   GOOGLE_CLOUD_STORAGE_BUCKET: "thesis_file_bucket"
-  GOOGLE_APPLICATION_CREDENTIALS: "/app/google_credentials.json"
   ROOT_DIR: "/app"

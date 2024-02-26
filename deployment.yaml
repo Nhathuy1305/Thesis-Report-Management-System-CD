@@ -31,11 +31,6 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -70,11 +65,6 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -109,11 +99,6 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -173,11 +158,6 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -212,11 +192,6 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -313,12 +288,6 @@ spec:
               configMapKeyRef:
                 name: services-config
                 key: GOOGLE_CLOUD_STORAGE_BUCKET
-              
-          - name: GOOGLE_APPLICATION_CREDENTIALS
-            valueFrom:
-              configMapKeyRef:
-                name: services-config
-                key: GOOGLE_APPLICATION_CREDENTIALS
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -353,11 +322,6 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -392,8 +356,3 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
-
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
