@@ -234,6 +234,10 @@ spec:
       labels:
         app: rest-backend
     spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
       containers:
       - name: rest-backend
         image: daniel135dang/rest:latest
@@ -308,6 +312,10 @@ spec:
               configMapKeyRef:
                 name: services-config
                 key: GOOGLE_APPLICATION_CREDENTIALS
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
 ---
 apiVersion: apps/v1
 kind: Deployment
