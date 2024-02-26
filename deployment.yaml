@@ -238,6 +238,9 @@ spec:
       - name: google-credentials
         secret:
           secretName: google-credentials
+      - name: app-volume
+        persistentVolumeClaim:
+          claimName: app-volume-claim 
       containers:
       - name: rest-backend
         image: daniel135dang/rest:latest
@@ -316,6 +319,8 @@ spec:
         - name: google-credentials
           mountPath: /app/google_credentials.json
           subPath: google_credentials.json
+        - name: app-volume
+          mountPath: /app/rest
 ---
 apiVersion: apps/v1
 kind: Deployment
