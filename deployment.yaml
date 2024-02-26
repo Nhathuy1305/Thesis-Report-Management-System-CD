@@ -248,7 +248,7 @@ spec:
         ports:
         - containerPort: 5000
         volumeMounts:
-        - name: rest-files
+        - name: rest-file
           mountPath: /app/rest/files
         env:
           - name: PORT
