@@ -21,6 +21,10 @@ spec:
         image: daniel135dang/chapter_summarization:latest
         ports:
         - containerPort: 5006
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app
+          readOnly: true
         env:
           - name: APP_NAME
             value: "chapter_summarization"
