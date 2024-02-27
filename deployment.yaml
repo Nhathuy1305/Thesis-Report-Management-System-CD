@@ -60,6 +60,11 @@ spec:
         image: daniel135dang/chapter_title:latest
         ports:
         - containerPort: 5001
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: APP_NAME
             value: "chapter_title"
@@ -94,6 +99,11 @@ spec:
         image: daniel135dang/citation:latest
         ports:
         - containerPort: 5007
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: APP_NAME
             value: "citation"
@@ -153,6 +163,11 @@ spec:
         image: daniel135dang/format_check:latest
         ports:
         - containerPort: 5002
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: APP_NAME
             value: "format_check"
@@ -187,6 +202,11 @@ spec:
         image: daniel135dang/page_count:latest
         ports:
         - containerPort: 5003
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: APP_NAME
             value: "page_count"
@@ -230,6 +250,10 @@ spec:
         volumeMounts:
         - name: rest-file
           mountPath: /app/rest/files
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: PORT
             value: "5000"
@@ -317,6 +341,11 @@ spec:
         image: daniel135dang/table_of_content:latest
         ports:
         - containerPort: 5004
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: APP_NAME
             value: "table_of_content"
@@ -351,6 +380,11 @@ spec:
         image: daniel135dang/word_frequency:latest
         ports:
         - containerPort: 5005
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
         env:
           - name: APP_NAME
             value: "word_frequency"
