@@ -23,7 +23,8 @@ spec:
         - containerPort: 5006
         volumeMounts:
         - name: google-credentials
-          mountPath: /app
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
           readOnly: true
         env:
           - name: APP_NAME
