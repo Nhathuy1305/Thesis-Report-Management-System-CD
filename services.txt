@@ -10,4 +10,3 @@ citation
 table_figure_detection
 grammar
 postgresql
-test_folder
