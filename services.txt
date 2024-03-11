@@ -1,11 +1,6 @@
-rest
-client
-chapter_summarization
-chapter_title
-format_check
-page_count
-table_of_content
-word_frequency
-citation
-table_figure_detection
-grammar
+ci-job/requirements
+ci-job/test_folder
+ci-job/.git
+ci-job/readme_images
+ci-job/postgresql
+ci-job/rabbitmq
