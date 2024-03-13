@@ -18,16 +18,14 @@ pipeline {
         stage('Update the Deployment Tags') {
             steps {
                 script {
-                    with open('services.txt', 'r') as file:
-                        services = [line.strip() for line in file]
+                    def services = readFile('services.txt').split("\n")
 
-                    for (service in services) {
+                    services.each { service ->
                         sh """
-                            cat deployment.yaml
                             sed -i 's|daniel135dang/${service}:.*|daniel135dang/${service}:${IMAGE_TAG}|g' deployment.yaml
-                            cat deployment.yaml
                         """
                     }
+                    sh "cat deployment.yaml"
                 }
             }
         }
