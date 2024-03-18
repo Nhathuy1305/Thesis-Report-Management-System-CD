@@ -1,39 +1,273 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  postgresql: postgresql-deployment
+  name: chapter-summarization-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgresql
+      app: chapter-summarization
   template:
     metadata:
       labels:
-        app: postgresql
+        app: chapter-summarization
     spec:
       volumes:
-      - postgresql: google-credentials
+      - name: google-credentials
         secret:
           secretName: google-credentials
       containers:
-      - postgresql: postgresql
-        image: daniel135dang/postgresql:1.0.0-52
+      - name: chapter-summarization
+        image: daniel135dang/chapter_summarization:1.0.0-43
         ports:
-        - containerPort: 5018
+        - containerPort: 5006
         volumeMounts:
-        - postgresql: google-credentials
+        - name: google-credentials
           mountPath: /app/google_credentials.json
           subPath: google_credentials.json
           readOnly: true
         env:
-          - postgresql: APP_NAME
-            value: "postgresql"
+          - name: APP_NAME
+            value: "chapter_summarization"
 
-          - postgresql: POSTGRES_NAME
-            value: "postgresql"               
+          - name: POSTGRES_NAME
+            value: "chapter_summarization"               
         
         envFrom:
           - configMapRef:
-              postgresql: services-config
+              name: services-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chapter-title-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chapter-title
+  template:
+    metadata:
+      labels:
+        app: chapter-title
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: chapter-title
+        image: daniel135dang/chapter_title:1.0.0-43
+        ports:
+        - containerPort: 5001
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "chapter_title"
+
+          - name: POSTGRES_NAME
+            value: "chapter_title"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: citation-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: citation
+  template:
+    metadata:
+      labels:
+        app: citation
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: citation
+        image: daniel135dang/citation:1.0.0-43
+        ports:
+        - containerPort: 5007
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "citation"
+
+          - name: POSTGRES_NAME
+            value: "citation"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: format-check-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: format-check
+  template:
+    metadata:
+      labels:
+        app: format-check
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: format-check
+        image: daniel135dang/format_check:1.0.0-43
+        ports:
+        - containerPort: 5002
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "format_check"
+
+          - name: POSTGRES_NAME
+            value: "format_check"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: page-count-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: page-count
+  template:
+    metadata:
+      labels:
+        app: page-count
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: page-count
+        image: daniel135dang/page_count:1.0.0-43
+        ports:
+        - containerPort: 5003
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "page_count"
+
+          - name: POSTGRES_NAME
+            value: "page_count"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: table-of-content-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: table-of-content
+  template:
+    metadata:
+      labels:
+        app: table-of-content
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: table-of-content
+        image: daniel135dang/table_of_content:1.0.0-43
+        ports:
+        - containerPort: 5004
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "table_of_content"
+
+          - name: POSTGRES_NAME
+            value: "table_of_content"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: word-frequency-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: word-frequency
+  template:
+    metadata:
+      labels:
+        app: word-frequency
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: word-frequency
+        image: daniel135dang/word_frequency:1.0.0-43
+        ports:
+        - containerPort: 5005
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "word_frequency"
+
+          - name: POSTGRES_NAME
+            value: "word_frequency"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
 ---

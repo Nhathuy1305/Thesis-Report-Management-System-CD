@@ -15,48 +15,48 @@ pipeline {
             }
         }
 
-        stage('Remove Services') {
-            steps {
-                script {
-                    def services = readFile('service_update/services.txt').split("\n")
+        // stage('Remove Services') {
+        //     steps {
+        //         script {
+        //             def services = readFile('service_update/services.txt').split("\n")
 
-                    def existingDeployContent = readFile('deployment.yaml').split("\n")
-                    def existingServiceContent = readFile('service.yaml').split("\n")
+        //             def existingDeployContent = readFile('deployment.yaml').split("\n")
+        //             def existingServiceContent = readFile('service.yaml').split("\n")
 
-                    def existingDeployServices = existingDeployContent.findAll { it =~ /name: (\w+)-deployment/ }.collect { it[1] }
-                    def existingServiceServices = existingServiceContent.findAll { it =~ /name: (\w+)-service/ }.collect { it[1] }
+        //             def existingDeployServices = existingDeployContent.findAll { it =~ /name: (\w+)-deployment/ }.collect { it[1] }
+        //             def existingServiceServices = existingServiceContent.findAll { it =~ /name: (\w+)-service/ }.collect { it[1] }
 
-                    def servicesToRemove = (existingDeployServices + existingServiceServices) - services
+        //             def servicesToRemove = (existingDeployServices + existingServiceServices) - services
 
-                    [existingDeployContent, existingServiceContent].each { existingContent ->
-                        servicesToRemove.each { service ->
-                            def startIndices = []
-                            existingContent.eachWithIndex { line, index ->
-                                if (line == '---' && existingContent[index + 2].contains("name: ${service}")) {
-                                    startIndices << index
-                                }
-                            }
-                            def endIndices = startIndices.collect { it + existingContent.subList(it, existingContent.size()).indexOf('---', 1) }
+        //             [existingDeployContent, existingServiceContent].each { existingContent ->
+        //                 servicesToRemove.each { service ->
+        //                     def startIndices = []
+        //                     existingContent.eachWithIndex { line, index ->
+        //                         if (line == '---' && existingContent[index + 2].contains("name: ${service}")) {
+        //                             startIndices << index
+        //                         }
+        //                     }
+        //                     def endIndices = startIndices.collect { it + existingContent.subList(it, existingContent.size()).indexOf('---', 1) }
 
-                            if (!startIndices.isEmpty() && !endIndices.isEmpty()) {
-                                for (i in startIndices.size() - 1..0) {
-                                    existingContent = existingContent.subList(0, startIndices[i]) + existingContent.subList(endIndices[i] + 1, existingContent.size())
-                                }
-                            }
-                        }
-                    }
+        //                     if (!startIndices.isEmpty() && !endIndices.isEmpty()) {
+        //                         for (i in startIndices.size() - 1..0) {
+        //                             existingContent = existingContent.subList(0, startIndices[i]) + existingContent.subList(endIndices[i] + 1, existingContent.size())
+        //                         }
+        //                     }
+        //                 }
+        //             }
 
-                    // If there are no services to remove, skip this stage
-                    if (servicesToRemove.isEmpty()) {
-                        currentBuild.result = 'NOT_BUILT'
-                        error('No services to remove. Skipping this stage.')
-                    }
+        //             // If there are no services to remove, skip this stage
+        //             if (servicesToRemove.isEmpty()) {
+        //                 currentBuild.result = 'NOT_BUILT'
+        //                 error('No services to remove. Skipping this stage.')
+        //             }
 
-                    writeFile(file: 'deployment.yaml', text: existingDeployContent.join("\n"))
-                    writeFile(file: 'service.yaml', text: existingServiceContent.join("\n"))
-                }
-            }
-        }
+        //             writeFile(file: 'deployment.yaml', text: existingDeployContent.join("\n"))
+        //             writeFile(file: 'service.yaml', text: existingServiceContent.join("\n"))
+        //         }
+        //     }
+        // }
 
         stage('Add New Services') {
             steps {
@@ -88,9 +88,12 @@ pipeline {
                         def newDeployContent = deployTemplate.replaceAll('name', service).replaceAll('number', maxPort.toString()) 
                         def newServiceContent = serviceTemplate.replaceAll('name', service).replaceAll('number', maxPort.toString())
 
-                        writeFile(file: 'deployment.yaml', text: newDeployContent, append: true)
-                        writeFile(file: 'service.yaml', text: newServiceContent, append: true)
+                        existingDeployContent += "\n" + newDeployContent
+                        existingServiceContent += "\n" + newServiceContent
                     }
+
+                    writeFile(file: 'deployment.yaml', text: existingDeployContent)
+                    writeFile(file: 'service.yaml', text: existingServiceContent)
                 }
             }
         }
