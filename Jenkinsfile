@@ -38,8 +38,10 @@ pipeline {
                             }
                             def endIndices = startIndices.collect { it + existingContent.subList(it, existingContent.size()).indexOf('---', 1) }
 
-                            for (i in startIndices.size() - 1..0) {
-                                existingContent = existingContent.subList(0, startIndices[i]) + existingContent.subList(endIndices[i] + 1, existingContent.size())
+                            if (!startIndices.isEmpty() && !endIndices.isEmpty()) {
+                                for (i in startIndices.size() - 1..0) {
+                                    existingContent = existingContent.subList(0, startIndices[i]) + existingContent.subList(endIndices[i] + 1, existingContent.size())
+                                }
                             }
                         }
                     }
