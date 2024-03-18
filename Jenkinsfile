@@ -88,8 +88,8 @@ pipeline {
                         def newDeployContent = deployTemplate.replaceAll('name', service).replaceAll('number', maxPort.toString()) 
                         def newServiceContent = serviceTemplate.replaceAll('name', service).replaceAll('number', maxPort.toString())
 
-                        appendFile(file: 'deployment.yaml', text: newDeployContent)
-                        appendFile(file: 'service.yaml', text: newServiceContent)
+                        writeFile(file: 'deployment.yaml', text: newDeployContent, append: true)
+                        writeFile(file: 'service.yaml', text: newServiceContent, append: true)
                     }
                 }
             }
