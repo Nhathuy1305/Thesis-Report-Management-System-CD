@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: name-service
+  name: name_service-service
 spec:
   selector:
-    app: name
+    app: name_service
   ports:
-    - name: name
+    - name: name_service
       protocol: TCP
       port: number
       targetPort: number

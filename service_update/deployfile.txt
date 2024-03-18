@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: name-deployment
+  name: name_service-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: name
+      app: name_service
   template:
     metadata:
       labels:
-        app: name
+        app: name_service
     spec:
       volumes:
       - name: google-credentials
         secret:
           secretName: google-credentials
       containers:
-      - name: name
-        image: daniel135dang/name:1.0.0-43
+      - name: name_service
+        image: daniel135dang/name_container:1.0.0-43
         ports:
         - containerPort: number
         volumeMounts:
@@ -28,10 +28,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "name"
+            value: "name_container"
 
           - name: POSTGRES_NAME
-            value: "name"               
+            value: "name_container"               
         
         envFrom:
           - configMapRef:

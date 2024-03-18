@@ -85,8 +85,10 @@ pipeline {
                     newServices.each { service ->
                         maxPort++
 
-                        def newDeployContent = deployTemplate.replaceAll('name', service).replaceAll('number', maxPort.toString()) 
-                        def newServiceContent = serviceTemplate.replaceAll('name', service).replaceAll('number', maxPort.toString())
+                        def formattedServiceName = service.replaceAll('_', '-')
+
+                        def newDeployContent = deployTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString()).replaceAll('name_container', service)
+                        def newServiceContent = serviceTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString())
 
                         existingDeployContent += "\n" + newDeployContent
                         existingServiceContent += "\n" + newServiceContent
