@@ -87,14 +87,15 @@ pipeline {
 
                         def formattedServiceName = service.replaceAll('_', '-')
 
+                        if (existingDeployContent.contains("name: ${formattedServiceName}-deployment") && existingServiceContent.contains("name: ${formattedServiceName}-service")) {
+                            return
+                        }
+
                         def newDeployContent = deployTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString()).replaceAll('name_container', service)
                         def newServiceContent = serviceTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString())
 
-                        existingDeployContent = existingDeployContent.replaceAll(/.*name: ${service}-deployment.*\n/, '')
-                        existingServiceContent = existingServiceContent.replaceAll(/.*name: ${service}-service.*\n/, '')
-
-                        existingDeployContent += newDeployContent
-                        existingServiceContent += newServiceContent
+                        existingDeployContent += "\n" + newDeployContent
+                        existingServiceContent += "\n" + newServiceContent
                     }
 
                     writeFile(file: 'deployment.yaml', text: existingDeployContent)
