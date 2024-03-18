@@ -1,5 +1,3 @@
-rest
-client
 chapter_summarization
 chapter_title
 format_check
@@ -9,4 +7,3 @@ word_frequency
 citation
 table_figure_detection
 grammar
-postgresql
