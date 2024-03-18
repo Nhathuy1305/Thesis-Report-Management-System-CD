@@ -30,7 +30,12 @@ pipeline {
 
                     [existingDeployContent, existingServiceContent].each { existingContent ->
                         servicesToRemove.each { service ->
-                            def startIndices = existingContent.indices.findAll { existingContent[it] == '---' && existingContent[it + 2].contains("name: ${service}") }
+                            def startIndices = []
+                            existingContent.eachWithIndex { line, index ->
+                                if (line == '---' && existingContent[index + 2].contains("name: ${service}")) {
+                                    startIndices << index
+                                }
+                            }
                             def endIndices = startIndices.collect { it + existingContent.subList(it, existingContent.size()).indexOf('---', 1) }
 
                             for (i in startIndices.size() - 1..0) {
