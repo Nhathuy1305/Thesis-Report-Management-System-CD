@@ -90,8 +90,11 @@ pipeline {
                         def newDeployContent = deployTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString()).replaceAll('name_container', service)
                         def newServiceContent = serviceTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString())
 
-                        existingDeployContent += "\n" + newDeployContent
-                        existingServiceContent += "\n" + newServiceContent
+                        existingDeployContent = existingDeployContent.replaceAll(/.*name: ${service}-deployment.*\n/, '')
+                        existingServiceContent = existingServiceContent.replaceAll(/.*name: ${service}-service.*\n/, '')
+
+                        existingDeployContent += newDeployContent
+                        existingServiceContent += newServiceContent
                     }
 
                     writeFile(file: 'deployment.yaml', text: existingDeployContent)
