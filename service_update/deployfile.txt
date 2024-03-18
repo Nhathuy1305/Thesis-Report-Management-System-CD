@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: name-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: name
+  template:
+    metadata:
+      labels:
+        app: name
+    spec:
+      volumes:
+      - name: google-credentials
+        secret:
+          secretName: google-credentials
+      containers:
+      - name: name
+        image: daniel135dang/name:1.0.0-43
+        ports:
+        - containerPort: number
+        volumeMounts:
+        - name: google-credentials
+          mountPath: /app/google_credentials.json
+          subPath: google_credentials.json
+          readOnly: true
+        env:
+          - name: APP_NAME
+            value: "name"
+
+          - name: POSTGRES_NAME
+            value: "name"               
+        
+        envFrom:
+          - configMapRef:
+              name: services-config
+---
