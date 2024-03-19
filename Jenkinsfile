@@ -61,7 +61,7 @@ pipeline {
         stage('Add New Services') {
             steps {
                 script {
-                    def services = readFile('service_update/services.txt').split("\n")
+                    def services = readFile('service_update/services.txt').replaceAll('_', '-').split("\n")
 
                     def existingDeployContent = readFile('deployment.yaml')
                     def existingServiceContent = readFile('service.yaml')
@@ -80,16 +80,14 @@ pipeline {
                     def serviceTemplate = readFile('service_update/servicefile.txt')
 
                     def usedPorts = (existingDeployContent =~ /containerPort: (\d+)/).collect { it[1].toInteger() }
-                    def maxPort = usedPorts ? usedPorts.max() : 6000
+                    def maxPort = usedPorts ? usedPorts.max() + 1 : 6001
 
                     newServices.each { service ->
                         maxPort++
 
-                        def formattedServiceName = service.replaceAll('_', '-')
+                        // def formattedServiceName = service.replaceAll('_', '-')
 
-                        if (existingDeployContent.contains("name: ${formattedServiceName}-deployment")) {
-                            println("Service ${formattedServiceName} already exists in deployment. Skipping.")
-                        } else {
+                        if (!existingDeployContent.contains("name: ${formattedServiceName}-deployment")) {
                             def newDeployContent = deployTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString()).replaceAll('name_container', service)
                             existingDeployContent += "\n" + newDeployContent
                         }
