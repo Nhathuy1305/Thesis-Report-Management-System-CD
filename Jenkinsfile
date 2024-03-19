@@ -17,29 +17,35 @@ pipeline {
 
         import org.yaml.snakeyaml.Yaml
         import org.yaml.snakeyaml.constructor.Constructor
-        
+
         stage('Remove Services') {
             steps {
                 script {
-                    def services = readFile('service_update/services.txt').replaceAll('_', '-').split("\n")
+                    def servicesToRemove = readFile('service_update/service_removed.txt').replaceAll('_', '-').split("\n")
 
-                    def yaml = new Yaml(new Constructor())
-                    def existingDeployContent = yaml.loadAll(readFile('deployment.yaml'))
-                    def existingServiceContent = yaml.loadAll(readFile('service.yaml'))
+                    def existingDeployContent = readFile('deployment.yaml')
+                    def existingServiceContent = readFile('service.yaml')
 
-                    def updatedDeployContent = existingDeployContent.findAll { deploy ->
-                        !services.any { service -> deploy.metadata.name == "${service}-deployment" }
+                    def servicesFound = servicesToRemove.findAll { service ->
+                        existingDeployContent.contains("name: ${service}-deployment") || existingServiceContent.contains("name: ${service}-service")
                     }
 
-                    def updatedServiceContent = existingServiceContent.findAll { service ->
-                        !services.any { service -> service.metadata.name == "${service}-service" }
-                    }
-
-                    if (updatedDeployContent.size() != existingDeployContent.size() || updatedServiceContent.size() != existingServiceContent.size()) {
-                        writeFile(file: 'deployment.yaml', text: yaml.dumpAll(updatedDeployContent.iterator()))
-                        writeFile(file: 'service.yaml', text: yaml.dumpAll(updatedServiceContent.iterator()))
-                    } else {
+                    // If there are no services to remove, skip this stage
+                    if (servicesFound.isEmpty()) {
                         println('No services to remove. Skipping this stage.')
+                        return
+                    }
+
+                    servicesFound.each { service ->
+                        def formattedServiceName = service.replaceAll('_', '-')
+
+                        existingDeployContent = existingDeployContent.replaceAll("name: ${formattedServiceName}-deployment", "")
+                        writeFile(file: 'deployment.yaml', text: existingDeployContent)
+
+                        existingServiceContent = existingServiceContent.replaceAll("name: ${formattedServiceName}-service", "")
+                        writeFile(file: 'service.yaml', text: existingServiceContent)
+
+                        println("Removed service: ${formattedServiceName}")
                     }
                 }
             }
@@ -67,7 +73,7 @@ pipeline {
                     def serviceTemplate = readFile('service_update/servicefile.txt')
 
                     def usedPorts = (existingDeployContent =~ /containerPort: (\d+)/).collect { it[1].toInteger() }
-                    def maxPort = usedPorts ? usedPorts.max() + 1 : 6001
+                    def maxPort = usedPorts ? usedPorts.max() : 6001
 
                     newServices.each { service ->
                         maxPort++
@@ -83,6 +89,8 @@ pipeline {
                             def newServiceContent = serviceTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString())
                             existingServiceContent += "\n" + newServiceContent
                         }
+
+                        println("Added service: ${formattedServiceName}")
                     }
 
                     writeFile(file: 'deployment.yaml', text: existingDeployContent)
