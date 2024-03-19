@@ -67,7 +67,7 @@ pipeline {
                     def existingServiceContent = readFile('service.yaml')
 
                     def newServices = services.findAll { service ->
-                        !existingDeployContent.contains("name: ${service}-deployment") && !existingServiceContent.contains("name: ${service}-service")
+                        !existingDeployContent.contains("name: ${service}-deployment") || !existingServiceContent.contains("name: ${service}-service")
                     }
 
                     // If there are no new services, skip this stage
@@ -114,7 +114,6 @@ pipeline {
                             sed -i 's|daniel135dang/${service}:.*|daniel135dang/${service}:${IMAGE_TAG}|g' deployment.yaml
                         """
                     }
-                    sh "cat deployment.yaml"
                 }
             }
         }
