@@ -15,48 +15,41 @@ pipeline {
             }
         }
 
-        // stage('Remove Services') {
-        //     steps {
-        //         script {
-        //             def services = readFile('service_update/services.txt').split("\n")
+        stage('Remove Services') {
+            steps {
+                script {
+                    def services = readFile('service_update/services.txt').replaceAll('_', '-').split("\n")
+                    
+                    def existingDeployContent = readFile('deployment.yaml')
+                    def existingServiceContent = readFile('service.yaml')
 
-        //             def existingDeployContent = readFile('deployment.yaml').split("\n")
-        //             def existingServiceContent = readFile('service.yaml').split("\n")
+                    def servicesToRemove = services.findAll { service ->
+                        existingDeployContent.contains("name: ${service}-deployment") && existingServiceContent.contains("name: ${service}-service")
+                    }
 
-        //             def existingDeployServices = existingDeployContent.findAll { it =~ /name: (\w+)-deployment/ }.collect { it[1] }
-        //             def existingServiceServices = existingServiceContent.findAll { it =~ /name: (\w+)-service/ }.collect { it[1] }
+                    // If there are no services to remove, skip this stage
+                    if (servicesToRemove.isEmpty()) {
+                        println('No services to remove. Skipping this stage.')
+                        return
+                    }
 
-        //             def servicesToRemove = (existingDeployServices + existingServiceServices) - services
+                    services.each { service ->
+                        def regexDeploy = "apiVersion: apps/v1\\nkind: Deployment\\nmetadata:\\n  name: ${service}-deployment\\n(.*?\\n)*?---"
+                        def regexService = "apiVersion: v1\\nkind: Service\\nmetadata:\\n  name: ${service}-service\\n(.*?\\n)*?---"
 
-        //             [existingDeployContent, existingServiceContent].each { existingContent ->
-        //                 servicesToRemove.each { service ->
-        //                     def startIndices = []
-        //                     existingContent.eachWithIndex { line, index ->
-        //                         if (line == '---' && existingContent[index + 2].contains("name: ${service}")) {
-        //                             startIndices << index
-        //                         }
-        //                     }
-        //                     def endIndices = startIndices.collect { it + existingContent.subList(it, existingContent.size()).indexOf('---', 1) }
+                        if (existingDeployContent =~ regexDeploy) {
+                            existingDeployContent = existingDeployContent.replaceAll(regexDeploy, '')
+                            writeFile(file: 'deployment.yaml', text: existingDeployContent)
+                        }
 
-        //                     if (!startIndices.isEmpty() && !endIndices.isEmpty()) {
-        //                         for (i in startIndices.size() - 1..0) {
-        //                             existingContent = existingContent.subList(0, startIndices[i]) + existingContent.subList(endIndices[i] + 1, existingContent.size())
-        //                         }
-        //                     }
-        //                 }
-        //             }
-
-        //             // If there are no services to remove, skip this stage
-        //             if (servicesToRemove.isEmpty()) {
-        //                 currentBuild.result = 'NOT_BUILT'
-        //                 error('No services to remove. Skipping this stage.')
-        //             }
-
-        //             writeFile(file: 'deployment.yaml', text: existingDeployContent.join("\n"))
-        //             writeFile(file: 'service.yaml', text: existingServiceContent.join("\n"))
-        //         }
-        //     }
-        // }
+                        if (existingServiceContent =~ regexService) {
+                            existingServiceContent = existingServiceContent.replaceAll(regexService, '')
+                            writeFile(file: 'service.yaml', text: existingServiceContent)
+                        }
+                    }
+                }
+            }
+        }
 
         stage('Add New Services') {
             steps {
