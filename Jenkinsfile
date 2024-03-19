@@ -15,37 +15,31 @@ pipeline {
             }
         }
 
+        import org.yaml.snakeyaml.Yaml
+        import org.yaml.snakeyaml.constructor.Constructor
+        
         stage('Remove Services') {
             steps {
                 script {
                     def services = readFile('service_update/services.txt').replaceAll('_', '-').split("\n")
-                    
-                    def existingDeployContent = readFile('deployment.yaml')
-                    def existingServiceContent = readFile('service.yaml')
 
-                    def servicesToRemove = services.findAll { service ->
-                        existingDeployContent.contains("name: ${service}-deployment") && existingServiceContent.contains("name: ${service}-service")
+                    def yaml = new Yaml(new Constructor())
+                    def existingDeployContent = yaml.loadAll(readFile('deployment.yaml'))
+                    def existingServiceContent = yaml.loadAll(readFile('service.yaml'))
+
+                    def updatedDeployContent = existingDeployContent.findAll { deploy ->
+                        !services.any { service -> deploy.metadata.name == "${service}-deployment" }
                     }
 
-                    // If there are no services to remove, skip this stage
-                    if (servicesToRemove.isEmpty()) {
+                    def updatedServiceContent = existingServiceContent.findAll { service ->
+                        !services.any { service -> service.metadata.name == "${service}-service" }
+                    }
+
+                    if (updatedDeployContent.size() != existingDeployContent.size() || updatedServiceContent.size() != existingServiceContent.size()) {
+                        writeFile(file: 'deployment.yaml', text: yaml.dumpAll(updatedDeployContent.iterator()))
+                        writeFile(file: 'service.yaml', text: yaml.dumpAll(updatedServiceContent.iterator()))
+                    } else {
                         println('No services to remove. Skipping this stage.')
-                        return
-                    }
-
-                    servicesToRemove.each { service ->
-                    def regexDeploy = "apiVersion: apps/v1\\nkind: Deployment\\nmetadata:\\n  name: ${service}-deployment\\n(.*?\\n)*?---\\n"
-                    def regexService = "apiVersion: v1\\nkind: Service\\nmetadata:\\n  name: ${service}-service\\n(.*?\\n)*?---\\n"
-
-                        if (existingDeployContent =~ regexDeploy) {
-                            existingDeployContent = existingDeployContent.replaceAll(regexDeploy, '')
-                            writeFile(file: 'deployment.yaml', text: existingDeployContent)
-                        }
-
-                        if (existingServiceContent =~ regexService) {
-                            existingServiceContent = existingServiceContent.replaceAll(regexService, '')
-                            writeFile(file: 'service.yaml', text: existingServiceContent)
-                        }
                     }
                 }
             }
