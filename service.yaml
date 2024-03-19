@@ -89,3 +89,29 @@ spec:
       port: 5005
       targetPort: 5005
 ---            
+apiVersion: v1
+kind: Service
+metadata:
+  name: table-figure-detection-service
+spec:
+  selector:
+    app: table-figure-detection
+  ports:
+    - name: table-figure-detection
+      protocol: TCP
+      port: 5017
+      targetPort: 5017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grammar-service
+spec:
+  selector:
+    app: grammar
+  ports:
+    - name: grammar
+      protocol: TCP
+      port: 5018
+      targetPort: 5018
+---
