@@ -33,7 +33,7 @@ pipeline {
                         return
                     }
 
-                    services.each { service ->
+                    servicesToRemove.each { service ->
                         def regexDeploy = "apiVersion: apps/v1\\nkind: Deployment\\nmetadata:\\n  name: ${service}-deployment\\n(.*?\\n)*?---"
                         def regexService = "apiVersion: v1\\nkind: Service\\nmetadata:\\n  name: ${service}-service\\n(.*?\\n)*?---"
 
