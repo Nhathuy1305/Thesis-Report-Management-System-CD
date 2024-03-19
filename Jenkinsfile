@@ -15,9 +15,6 @@ pipeline {
             }
         }
 
-        import org.yaml.snakeyaml.Yaml
-        import org.yaml.snakeyaml.constructor.Constructor
-
         stage('Remove Services') {
             steps {
                 script {
