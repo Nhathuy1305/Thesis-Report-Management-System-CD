@@ -72,8 +72,8 @@ pipeline {
 
                     // If there are no new services, skip this stage
                     if (newServices.isEmpty()) {
-                        currentBuild.result = 'NOT_BUILT'
-                        error('No new services to add. Skipping this stage.')
+                        println('No new services to add. Skipping this stage.')
+                        return
                     }
 
                     def deployTemplate = readFile('service_update/deployfile.txt')
@@ -85,7 +85,7 @@ pipeline {
                     newServices.each { service ->
                         maxPort++
 
-                        // def formattedServiceName = service.replaceAll('_', '-')
+                        def formattedServiceName = service.replaceAll('_', '-')
 
                         if (!existingDeployContent.contains("name: ${formattedServiceName}-deployment")) {
                             def newDeployContent = deployTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString()).replaceAll('name_container', service)
