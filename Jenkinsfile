@@ -20,29 +20,23 @@ pipeline {
                 script {
                     def servicesToRemove = readFile('service_update/service_removed.txt').replaceAll('_', '-').split("\n")
 
-                    def existingDeployContent = readFile('deployment.yaml')
-                    def existingServiceContent = readFile('service.yaml')
+                    // def existingDeployContent = readFile('deployment.yaml')
+                    // def existingServiceContent = readFile('service.yaml')
 
                     servicesToRemove.each { service ->
                         def formattedServiceName = service.replaceAll('_', '-')
 
-                        def pattern = Pattern.compile("(?s)apiVersion:.*?name: ${formattedServiceName}-(deployment|service).*?---")
-
                         // Remove service block from deployment file
-                        def matcher = pattern.matcher(existingDeployContent)
-                        if (matcher.find()) {
-                            existingDeployContent = matcher.replaceAll("")
-                            writeFile(file: 'deployment.yaml', text: existingDeployContent)
-                            println("Removed service: ${formattedServiceName} from deployment.yaml")
-                        }
+                        def deploymentBlocks = readFile('deployment.yaml').split('---')
+                        def newDeploymentBlocks = deploymentBlocks.findAll { !it.contains(formattedServiceName) }
+                        writeFile(file: 'deployment.yaml', text: newDeploymentBlocks.join('---'))
+                        println("Removed service: ${formattedServiceName} from deployment.yaml")
 
                         // Remove service block from service file
-                        matcher = pattern.matcher(existingServiceContent)
-                        if (matcher.find()) {
-                            existingServiceContent = matcher.replaceAll("")
-                            writeFile(file: 'service.yaml', text: existingServiceContent)
-                            println("Removed service: ${formattedServiceName} from service.yaml")
-                        }
+                        def serviceBlocks = readFile('service.yaml').split('---')
+                        def newServiceBlocks = serviceBlocks.findAll { !it.contains(formattedServiceName) }
+                        writeFile(file: 'service.yaml', text: newServiceBlocks.join('---'))
+                        println("Removed service: ${formattedServiceName} from service.yaml")
                     }
                 }
             }
