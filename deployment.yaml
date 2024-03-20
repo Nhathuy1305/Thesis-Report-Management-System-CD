@@ -18,7 +18,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-summarization
-        image: daniel135dang/chapter_summarization:1.0.0-63
+        image: daniel135dang/chapter_summarization:1.0.0-70
         ports:
         - containerPort: 5006
         volumeMounts:
@@ -57,7 +57,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-title
-        image: daniel135dang/chapter_title:1.0.0-63
+        image: daniel135dang/chapter_title:1.0.0-70
         ports:
         - containerPort: 5001
         volumeMounts:
@@ -96,7 +96,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: citation
-        image: daniel135dang/citation:1.0.0-63
+        image: daniel135dang/citation:1.0.0-70
         ports:
         - containerPort: 5007
         volumeMounts:
@@ -110,45 +110,6 @@ spec:
 
           - name: POSTGRES_NAME
             value: "citation"               
-        
-        envFrom:
-          - configMapRef:
-              name: services-config
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: format-check-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: format-check
-  template:
-    metadata:
-      labels:
-        app: format-check
-    spec:
-      volumes:
-      - name: google-credentials
-        secret:
-          secretName: google-credentials
-      containers:
-      - name: format-check
-        image: daniel135dang/format_check:1.0.0-63
-        ports:
-        - containerPort: 5002
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
-          readOnly: true
-        env:
-          - name: APP_NAME
-            value: "format_check"
-
-          - name: POSTGRES_NAME
-            value: "format_check"               
         
         envFrom:
           - configMapRef:
@@ -174,7 +135,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: page-count
-        image: daniel135dang/page_count:1.0.0-63
+        image: daniel135dang/page_count:1.0.0-70
         ports:
         - containerPort: 5003
         volumeMounts:
@@ -213,7 +174,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: table-of-content
-        image: daniel135dang/table_of_content:1.0.0-63
+        image: daniel135dang/table_of_content:1.0.0-70
         ports:
         - containerPort: 5004
         volumeMounts:
@@ -252,7 +213,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: word-frequency
-        image: daniel135dang/word_frequency:1.0.0-63
+        image: daniel135dang/word_frequency:1.0.0-70
         ports:
         - containerPort: 5005
         volumeMounts:
@@ -291,7 +252,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: table-figure-detection
-        image: daniel135dang/table_figure_detection:1.0.0-63
+        image: daniel135dang/table_figure_detection:1.0.0-70
         ports:
         - containerPort: 5014
         volumeMounts:
@@ -330,7 +291,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: grammar
-        image: daniel135dang/grammar:1.0.0-63
+        image: daniel135dang/grammar:1.0.0-70
         ports:
         - containerPort: 5015
         volumeMounts:
@@ -348,4 +309,3 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
----
