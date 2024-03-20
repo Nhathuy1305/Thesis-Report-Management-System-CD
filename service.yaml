@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,8 +9,8 @@ spec:
   ports:
     - name: chapter-summarization
       protocol: TCP
-      port: 5006
-      targetPort: 5006
+      port: 6002
+      targetPort: 6002
 ---
 apiVersion: v1
 kind: Service
@@ -21,21 +22,8 @@ spec:
   ports:
     - name: chapter-title
       protocol: TCP
-      port: 5001
-      targetPort: 5001
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: citation-service
-spec:
-  selector:
-    app: citation
-  ports:
-    - name: citation
-      protocol: TCP
-      port: 5007
-      targetPort: 5007
+      port: 6003
+      targetPort: 6003
 ---
 apiVersion: v1
 kind: Service
@@ -47,8 +35,8 @@ spec:
   ports:
     - name: page-count
       protocol: TCP
-      port: 5003
-      targetPort: 5003
+      port: 6004
+      targetPort: 6004
 ---
 apiVersion: v1
 kind: Service
@@ -60,8 +48,8 @@ spec:
   ports:
     - name: table-of-content
       protocol: TCP
-      port: 5004
-      targetPort: 5004
+      port: 6005
+      targetPort: 6005
 ---
 apiVersion: v1
 kind: Service
@@ -73,9 +61,22 @@ spec:
   ports:
     - name: word-frequency
       protocol: TCP
-      port: 5005
-      targetPort: 5005
----            
+      port: 6006
+      targetPort: 6006
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: citation-service
+spec:
+  selector:
+    app: citation
+  ports:
+    - name: citation
+      protocol: TCP
+      port: 6007
+      targetPort: 6007
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -86,8 +87,8 @@ spec:
   ports:
     - name: table-figure-detection
       protocol: TCP
-      port: 5017
-      targetPort: 5017
+      port: 6008
+      targetPort: 6008
 ---
 apiVersion: v1
 kind: Service
@@ -99,5 +100,19 @@ spec:
   ports:
     - name: grammar
       protocol: TCP
-      port: 5018
-      targetPort: 5018
+      port: 6009
+      targetPort: 6009
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: format-check-service
+spec:
+  selector:
+    app: format-check
+  ports:
+    - name: format-check
+      protocol: TCP
+      port: 6010
+      targetPort: 6010
+---
