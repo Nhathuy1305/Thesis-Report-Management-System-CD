@@ -23,26 +23,26 @@ pipeline {
                     def existingDeployContent = readFile('deployment.yaml')
                     def existingServiceContent = readFile('service.yaml')
 
-                    def servicesFound = servicesToRemove.findAll { service ->
-                        existingDeployContent.contains("name: ${service}-deployment") || existingServiceContent.contains("name: ${service}-service")
-                    }
-
-                    // If there are no services to remove, skip this stage
-                    if (servicesFound.isEmpty()) {
-                        println('No services to remove. Skipping this stage.')
-                        return
-                    }
-
-                    servicesFound.each { service ->
+                    servicesToRemove.each { service ->
                         def formattedServiceName = service.replaceAll('_', '-')
 
-                        existingDeployContent = existingDeployContent.replaceAll("name: ${formattedServiceName}-deployment", "")
-                        writeFile(file: 'deployment.yaml', text: existingDeployContent)
+                        def pattern = Pattern.compile("(?s)apiVersion:.*?name: ${formattedServiceName}-(deployment|service).*?---")
 
-                        existingServiceContent = existingServiceContent.replaceAll("name: ${formattedServiceName}-service", "")
-                        writeFile(file: 'service.yaml', text: existingServiceContent)
+                        // Remove service block from deployment file
+                        def matcher = pattern.matcher(existingDeployContent)
+                        if (matcher.find()) {
+                            existingDeployContent = matcher.replaceAll("")
+                            writeFile(file: 'deployment.yaml', text: existingDeployContent)
+                            println("Removed service: ${formattedServiceName} from deployment.yaml")
+                        }
 
-                        println("Removed service: ${formattedServiceName}")
+                        // Remove service block from service file
+                        matcher = pattern.matcher(existingServiceContent)
+                        if (matcher.find()) {
+                            existingServiceContent = matcher.replaceAll("")
+                            writeFile(file: 'service.yaml', text: existingServiceContent)
+                            println("Removed service: ${formattedServiceName} from service.yaml")
+                        }
                     }
                 }
             }
