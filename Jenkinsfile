@@ -20,8 +20,11 @@ pipeline {
                 script {
                     def servicesToRemove = readFile('service_update/service_removed.txt').replaceAll('_', '-').split("\n")
 
-                    // def existingDeployContent = readFile('deployment.yaml')
-                    // def existingServiceContent = readFile('service.yaml')
+                    // If there are no services to remove, skip this stage
+                    if (servicesToRemove.isEmpty()) {
+                        println('No services to remove. Skipping this stage.')
+                        return
+                    }
 
                     servicesToRemove.each { service ->
                         def formattedServiceName = service.replaceAll('_', '-')
