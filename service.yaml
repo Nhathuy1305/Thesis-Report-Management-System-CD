@@ -3,6 +3,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: chapter-summarization-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6002'
 spec:
   selector:
     app: chapter-summarization
@@ -16,6 +20,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: chapter-title-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6003'
 spec:
   selector:
     app: chapter-title
@@ -29,6 +37,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: page-count-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6004'
 spec:
   selector:
     app: page-count
@@ -42,6 +54,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: table-of-content-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6005'
 spec:
   selector:
     app: table-of-content
@@ -55,6 +71,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: word-frequency-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6006'
 spec:
   selector:
     app: word-frequency
@@ -68,6 +88,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: citation-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6007'
 spec:
   selector:
     app: citation
@@ -81,6 +105,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: table-figure-detection-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6008'
 spec:
   selector:
     app: table-figure-detection
@@ -94,6 +122,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grammar-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6009'
 spec:
   selector:
     app: grammar
@@ -107,6 +139,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: format-check-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '6010'
 spec:
   selector:
     app: format-check
