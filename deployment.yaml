@@ -214,7 +214,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: citation
-        image: daniel135dang/citation:1.0.0-71
+        image: daniel135dang/citation:1.0.0-80
         ports:
         - containerPort: 6007
         volumeMounts:
@@ -292,7 +292,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: grammar
-        image: daniel135dang/grammar:1.0.0-71
+        image: daniel135dang/grammar:1.0.0-80
         ports:
         - containerPort: 6009
         volumeMounts:
