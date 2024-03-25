@@ -21,8 +21,8 @@ pipeline {
                     def servicesToRemove = readFile('service_update/service_removed.txt').replaceAll('_', '-').split("\n")
 
                     // If there are no services to remove, skip this stage
-                    if (servicesToRemove.isEmpty()) {
-                        println('No services to remove. Skipping this stage.')
+                    if (newServices.size() == 0) {
+                        println('No new services to add. Skipping this stage.')
                         return
                     }
 
