@@ -72,24 +72,24 @@ pipeline {
                     newServices.each { service ->
                         maxPort++
 
-                        def formattedServiceName = service.replaceAll('_', '-')
+                        def formattedServiceName = service.replaceAll('-', '_')
 
                         if (!existingDeployContent.contains("name: ${formattedServiceName}-deployment")) {
                             def newDeployContent = deployTemplate
-                                            .replaceAll('name_service', formattedServiceName)
+                                            .replaceAll('name_service', service)
                                             .replaceAll('number', maxPort.toString())
-                                            .replaceAll('name_container', service.replaceAll('-', '_'))
+                                            .replaceAll('name_container', formattedServiceName)
                             existingDeployContent += "\n" + newDeployContent
                         }
 
                         if (!existingServiceContent.contains("name: ${formattedServiceName}-service")) {
                             def newServiceContent = serviceTemplate
-                                            .replaceAll('name_service', formattedServiceName)
+                                            .replaceAll('name_service', service)
                                             .replaceAll('number', maxPort.toString())
                             existingServiceContent += "\n" + newServiceContent
                         }
 
-                        println("Added service: ${formattedServiceName}")
+                        println("Added service: ${service}")
                     }
 
                     writeFile(file: 'deployment.yaml', text: existingDeployContent)
