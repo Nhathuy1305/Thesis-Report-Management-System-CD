@@ -19,7 +19,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-summarization
-        image: daniel135dang/chapter-summarization:1.0.0-43
+        image: daniel135dang/chapter_summarization:1.0.0-83
         ports:
         - containerPort: 6002
         volumeMounts:
@@ -29,10 +29,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "chapter-summarization"
+            value: "chapter_summarization"
 
           - name: POSTGRES_NAME
-            value: "chapter-summarization"               
+            value: "chapter_summarization"               
         
         envFrom:
           - configMapRef:
@@ -68,10 +68,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "chapter-title"
+            value: "chapter_title"
 
           - name: POSTGRES_NAME
-            value: "chapter-title"               
+            value: "chapter_title"               
         
         envFrom:
           - configMapRef:
@@ -107,10 +107,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "page-count"
+            value: "page_count"
 
           - name: POSTGRES_NAME
-            value: "page-count"               
+            value: "page_count"               
         
         envFrom:
           - configMapRef:
@@ -146,10 +146,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "table-of-content"
+            value: "table_of_content"
 
           - name: POSTGRES_NAME
-            value: "table-of-content"               
+            value: "table_of_content"               
         
         envFrom:
           - configMapRef:
@@ -185,10 +185,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "word-frequency"
+            value: "word_frequency"
 
           - name: POSTGRES_NAME
-            value: "word-frequency"               
+            value: "word_frequency"               
         
         envFrom:
           - configMapRef:
@@ -263,10 +263,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "table-figure-detection"
+            value: "table_figure_detection"
 
           - name: POSTGRES_NAME
-            value: "table-figure-detection"               
+            value: "table_figure_detection"               
         
         envFrom:
           - configMapRef:
@@ -341,10 +341,10 @@ spec:
           readOnly: true
         env:
           - name: APP_NAME
-            value: "format-check"
+            value: "format_check"
 
           - name: POSTGRES_NAME
-            value: "format-check"               
+            value: "format_check"               
         
         envFrom:
           - configMapRef:
