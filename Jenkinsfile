@@ -75,12 +75,17 @@ pipeline {
                         def formattedServiceName = service.replaceAll('_', '-')
 
                         if (!existingDeployContent.contains("name: ${formattedServiceName}-deployment")) {
-                            def newDeployContent = deployTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString()).replaceAll('name_container', service)
+                            def newDeployContent = deployTemplate
+                                            .replaceAll('name_service', formattedServiceName)
+                                            .replaceAll('number', maxPort.toString())
+                                            .replaceAll('name_container', service.replaceAll('-', '_'))
                             existingDeployContent += "\n" + newDeployContent
                         }
 
                         if (!existingServiceContent.contains("name: ${formattedServiceName}-service")) {
-                            def newServiceContent = serviceTemplate.replaceAll('name_service', formattedServiceName).replaceAll('number', maxPort.toString())
+                            def newServiceContent = serviceTemplate
+                                            .replaceAll('name_service', formattedServiceName)
+                                            .replaceAll('number', maxPort.toString())
                             existingServiceContent += "\n" + newServiceContent
                         }
 
