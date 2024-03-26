@@ -125,7 +125,7 @@ pipeline {
                     sh """
                         git config --global user.name "Nhathuy1305"
                         git config --global user.email "ITITIU20043@student.hcmiu.edu.vn"
-                        git add deployment.yaml service.yaml
+                        git add deployment.yaml service.yaml rest-client-deployment.yaml
                         git commit -m "Updated Deployment Manifest"
                     """
                     withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
