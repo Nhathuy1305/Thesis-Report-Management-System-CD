@@ -102,10 +102,17 @@ pipeline {
             steps {
                 script {
                     def services = readFile('service_update/services.txt').split("\n")
+                    def load_balancer = readFile('service_update/load_balancer.txt').split("\n")
 
                     services.each { service ->
                         sh """
                             sed -i 's|daniel135dang/${service}:.*|daniel135dang/${service}:${IMAGE_TAG}|g' deployment.yaml
+                        """
+                    }
+
+                    load_balancer.each { service ->
+                        sh """
+                            sed -i 's|daniel135dang/${service}:.*|daniel135dang/${service}:${IMAGE_TAG}|g' rest-client-deployment.yaml
                         """
                     }
                 }
