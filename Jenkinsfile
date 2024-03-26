@@ -96,7 +96,7 @@ pipeline {
         stage('Update the Deployment Tags') {
             steps {
                 script {
-                    def services = readFile('service_update/services.txt').replaceAll('_', '-').split("\n")
+                    def services = readFile('service_update/services.txt').split("\n")
 
                     services.each { service ->
                         sh """
