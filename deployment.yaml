@@ -19,7 +19,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-summarization
-        image: daniel135dang/chapter_summarization:1.0.0-86
+        image: daniel135dang/chapter_summarization:1.0.0-87
         ports:
         - containerPort: 6002
         volumeMounts:
@@ -58,7 +58,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-title
-        image: daniel135dang/chapter_title:1.0.0-86
+        image: daniel135dang/chapter_title:1.0.0-87
         ports:
         - containerPort: 6003
         volumeMounts:
@@ -97,7 +97,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: page-count
-        image: daniel135dang/page_count:1.0.0-86
+        image: daniel135dang/page_count:1.0.0-87
         ports:
         - containerPort: 6004
         volumeMounts:
@@ -136,7 +136,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: table-of-content
-        image: daniel135dang/table_of_content:1.0.0-86
+        image: daniel135dang/table_of_content:1.0.0-87
         ports:
         - containerPort: 6005
         volumeMounts:
@@ -150,45 +150,6 @@ spec:
 
           - name: POSTGRES_NAME
             value: "table_of_content"               
-        
-        envFrom:
-          - configMapRef:
-              name: services-config
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: word-frequency-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: word-frequency
-  template:
-    metadata:
-      labels:
-        app: word-frequency
-    spec:
-      volumes:
-      - name: google-credentials
-        secret:
-          secretName: google-credentials
-      containers:
-      - name: word-frequency
-        image: daniel135dang/word_frequency:1.0.0-86
-        ports:
-        - containerPort: 6006
-        volumeMounts:
-        - name: google-credentials
-          mountPath: /app/google_credentials.json
-          subPath: google_credentials.json
-          readOnly: true
-        env:
-          - name: APP_NAME
-            value: "word_frequency"
-
-          - name: POSTGRES_NAME
-            value: "word_frequency"               
         
         envFrom:
           - configMapRef:
@@ -214,7 +175,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: citation
-        image: daniel135dang/citation:1.0.0-86
+        image: daniel135dang/citation:1.0.0-87
         ports:
         - containerPort: 6007
         volumeMounts:
@@ -253,7 +214,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: table-figure-detection
-        image: daniel135dang/table_figure_detection:1.0.0-86
+        image: daniel135dang/table_figure_detection:1.0.0-87
         ports:
         - containerPort: 6008
         volumeMounts:
@@ -292,7 +253,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: grammar
-        image: daniel135dang/grammar:1.0.0-86
+        image: daniel135dang/grammar:1.0.0-87
         ports:
         - containerPort: 6009
         volumeMounts:
@@ -331,7 +292,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: format-check
-        image: daniel135dang/format_check:1.0.0-86
+        image: daniel135dang/format_check:1.0.0-87
         ports:
         - containerPort: 6010
         volumeMounts:
@@ -349,4 +310,3 @@ spec:
         envFrom:
           - configMapRef:
               name: services-config
----
