@@ -2,7 +2,6 @@ chapter_summarization
 chapter_title
 page_count
 table_of_content
-word_frequency
 citation
 table_figure_detection
 grammar
