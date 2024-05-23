@@ -10,7 +10,7 @@ spec:
   hostPath:
     path: /app/rest/files
     type: DirectoryOrCreate
-
+  storageClassName: standard-rwo
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -22,4 +22,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  volumeName: rest-file-pv
+  storageClassName: standard-rwo
