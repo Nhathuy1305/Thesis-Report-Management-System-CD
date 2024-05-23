@@ -41,9 +41,8 @@ spec:
     spec:
       volumes:
       - name: rest-file
-        hostPath:
-          path: /app/rest/files
-          type: DirectoryOrCreate
+        persistentVolumeClaim:
+          claimName: rest-file-pvc
       - name: google-credentials
         secret:
           secretName: google-credentials
