@@ -53,7 +53,7 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: rest-file
-          mountPath: /app/rest/files
+          mountPath: /mnt/app/rest/files
         - name: google-credentials
           mountPath: /app/google_credentials.json
           subPath: google_credentials.json
@@ -61,61 +61,48 @@ spec:
         env:
           - name: PORT
             value: "5000"
-            
           - name: APP_NAME
             value: "rest"
-
           - name: HOST
             value: "rest-service"
-
           - name: RABBITMQ_HOST
             value: "amqp://rabbitmq:5672"
-
           - name: RABBITMQ_FILE_LOCATION_EXCHANGE
             value: "uploaded_file_location"
-
           - name: RABBITMQ_OUTPUT_LOCATION_EXCHANGE
             value: "output_location"
-
           - name: POSTGRES_HOST
             valueFrom:
               configMapKeyRef:
                 name: services-config
                 key: POSTGRES_HOST
-
           - name: POSTGRES_USER
             valueFrom:
               configMapKeyRef:
                 name: services-config
                 key: POSTGRES_USER
-
           - name: POSTGRES_PASSWORD
             valueFrom:
               configMapKeyRef:
                 name: services-config
                 key: POSTGRES_PASSWORD
-
           - name: POSTGRES_DB
             valueFrom:
               configMapKeyRef:
                 name: services-config
                 key: POSTGRES_DB
-          
           - name: ROOT_DIR
             valueFrom:
               configMapKeyRef:
                 name: services-config
                 key: ROOT_DIR
-
           - name: REACT_APP_SERVICE_LIST
             valueFrom:
               configMapKeyRef:
                 name: app-config
                 key: REACT_APP_SERVICE_LIST
-
           - name: GUIDELINES_LIST
             value: "chapter_title,format_check,page_count"
-
           - name: GOOGLE_CLOUD_STORAGE_BUCKET
             valueFrom:
               configMapKeyRef:
