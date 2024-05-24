@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/rest/files
+    path: /app/rest/files
     type: DirectoryOrCreate
   storageClassName: standard-rwo
 ---
