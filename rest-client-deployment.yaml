@@ -53,7 +53,7 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: rest-file
-          mountPath: /mnt/app/rest/files
+          mountPath: /mnt/rest/files
         - name: google-credentials
           mountPath: /app/google_credentials.json
           subPath: google_credentials.json
