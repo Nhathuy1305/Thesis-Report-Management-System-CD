@@ -52,7 +52,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: standard-rwo
+        storageClassName: standard
         resources:
           requests:
             storage: 10Gi
