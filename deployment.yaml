@@ -19,7 +19,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-summarization
-        image: daniel135dang/chapter_summarization:1.0.0-5
+        image: daniel135dang/chapter_summarization:1.0.0-6
         ports:
         - containerPort: 6002
         volumeMounts:
@@ -58,7 +58,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: chapter-title
-        image: daniel135dang/chapter_title:1.0.0-5
+        image: daniel135dang/chapter_title:1.0.0-6
         ports:
         - containerPort: 6003
         volumeMounts:
@@ -97,7 +97,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: page-count
-        image: daniel135dang/page_count:1.0.0-5
+        image: daniel135dang/page_count:1.0.0-6
         ports:
         - containerPort: 6004
         volumeMounts:
@@ -136,7 +136,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: table-of-content
-        image: daniel135dang/table_of_content:1.0.0-5
+        image: daniel135dang/table_of_content:1.0.0-6
         ports:
         - containerPort: 6005
         volumeMounts:
@@ -175,7 +175,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: citation
-        image: daniel135dang/citation:1.0.0-5
+        image: daniel135dang/citation:1.0.0-6
         ports:
         - containerPort: 6007
         volumeMounts:
@@ -214,7 +214,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: table-figure-detection
-        image: daniel135dang/table_figure_detection:1.0.0-5
+        image: daniel135dang/table_figure_detection:1.0.0-6
         ports:
         - containerPort: 6008
         volumeMounts:
@@ -253,7 +253,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: grammar
-        image: daniel135dang/grammar:1.0.0-5
+        image: daniel135dang/grammar:1.0.0-6
         ports:
         - containerPort: 6009
         volumeMounts:
@@ -292,7 +292,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: format-check
-        image: daniel135dang/format_check:1.0.0-5
+        image: daniel135dang/format_check:1.0.0-6
         ports:
         - containerPort: 6010
         volumeMounts:
