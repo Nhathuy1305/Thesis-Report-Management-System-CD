@@ -22,6 +22,12 @@ spec:
         envFrom:
           - configMapRef:
               name: app-config
+        env:
+        - name: REACT_APP_BACKEND_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: REACT_APP_BACKEND_HOST
 ---
 apiVersion: apps/v1
 kind: Deployment
