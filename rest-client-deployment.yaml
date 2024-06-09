@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client-frontend
+  name: client-frontend-deployment
   labels:
     app: client-frontend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: client-frontend
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-20
+        image: daniel135dang/client:1.0.0-21
         ports:
         - containerPort: 3000
         envFrom:
@@ -26,7 +26,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rest-backend
+  name: rest-backend-deployment
   labels:
     app: rest-backend
 spec:
@@ -124,7 +124,7 @@ spec:
     app: client-frontend
   ports:
     - protocol: TCP
-      port: 3000
+      port: 80
       targetPort: 3000
 ---
 apiVersion: v1
