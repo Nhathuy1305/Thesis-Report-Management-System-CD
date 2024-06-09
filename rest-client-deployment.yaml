@@ -48,12 +48,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: rest-backend
-        image: daniel135dang/rest:1.0.0-6
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
-            ulimit -n 65536
-            exec npm start
+        image: daniel135dang/rest:1.0.0-7
         ports:
         - containerPort: 5000
         volumeMounts:
