@@ -5,7 +5,7 @@ metadata:
   labels:
     app: client-frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: client-frontend
@@ -124,7 +124,7 @@ spec:
     app: client-frontend
   ports:
     - protocol: TCP
-      port: 80
+      port: 3000
       targetPort: 3000
 ---
 apiVersion: v1
