@@ -137,11 +137,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rest-service
-  type: NodePort
   labels:
     app: rest-backend
     tier: backend
 spec:
+  type: NodePort
   selector:
     app: rest-backend
     tier: backend
