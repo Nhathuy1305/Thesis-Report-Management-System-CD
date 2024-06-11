@@ -2,21 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: client-frontend-deployment
-  labels:
-    app: client-frontend
+  # labels:
+  #   app: client-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: client-frontend
+      tier: frontend
   template:
     metadata:
       labels:
         app: client-frontend
+        tier: frontend
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-53
+        image: daniel135dang/client:1.0.0-54
         ports:
         - containerPort: 3000
         volumeMounts:
@@ -33,17 +35,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rest-backend-deployment
-  labels:
-    app: rest-backend
+  # labels:
+  #   app: rest-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: rest-backend
+      tier: backend
   template:
     metadata:
       labels:
         app: rest-backend
+        tier: backend
     spec:
       volumes:
       - name: rest-file
@@ -119,10 +123,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: client-frontend-service
+  labels:
+    app: client-frontend
+    tier: frontend
 spec:
   type: LoadBalancer
   selector:
     app: client-frontend
+    tier: frontend
   ports:
     - protocol: TCP
       port: 3000
@@ -132,10 +140,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rest-service
+  labels:
+    app: rest-backend
+    tier: backend
 spec:
-  type: ClusterIP
   selector:
     app: rest-backend
+    tier: backend
   ports:
     - protocol: TCP
       port: 5000
