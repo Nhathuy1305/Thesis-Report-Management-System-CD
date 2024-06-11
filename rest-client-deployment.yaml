@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-54
+        image: daniel135dang/client:1.0.0-55
         ports:
         - containerPort: 3000
         volumeMounts:
