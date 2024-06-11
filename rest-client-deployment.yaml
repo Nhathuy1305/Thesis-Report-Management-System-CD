@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-57
+        image: daniel135dang/client:1.0.0-58
         ports:
         - containerPort: 3000
         volumeMounts:
@@ -149,3 +149,4 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 30007
