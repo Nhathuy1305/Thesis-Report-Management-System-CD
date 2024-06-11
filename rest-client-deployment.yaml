@@ -107,10 +107,7 @@ spec:
                 name: services-config
                 key: ROOT_DIR
           - name: REACT_APP_SERVICE_LIST
-            valueFrom:
-              configMapKeyRef:
-                name: app-config
-                key: REACT_APP_SERVICE_LIST
+            value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
           - name: GUIDELINES_LIST
             value: "chapter_title,format_check,page_count"
           - name: GOOGLE_CLOUD_STORAGE_BUCKET
