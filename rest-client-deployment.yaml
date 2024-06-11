@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: client-frontend-deployment
-  # labels:
-  #   app: client-frontend
 spec:
   replicas: 1
   selector:
@@ -18,25 +16,28 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-59
+        image: daniel135dang/client:1.0.0-60
         ports:
         - containerPort: 3000
-        volumeMounts:
-        - name: app-config-volume
-          mountPath: /usr/share/nginx/html/config.js
-          subPath: config.js
-          readOnly: true
-      volumes:
-      - name: app-config-volume
-        configMap:
-          name: app-config
+        env:
+          - name: REACT_APP_SERVICE_LIST
+            value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
+          - name: REACT_APP_BACKEND_HOST
+            value: "http://rest-service:5000"
+      #   volumeMounts:
+      #   - name: app-config-volume
+      #     mountPath: /usr/share/nginx/html/config.js
+      #     subPath: config.js
+      #     readOnly: true
+      # volumes:
+      # - name: app-config-volume
+      #   configMap:
+      #     name: app-config
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rest-backend-deployment
-  # labels:
-  #   app: rest-backend
 spec:
   replicas: 1
   selector:
@@ -141,7 +142,7 @@ metadata:
     app: rest-backend
     tier: backend
 spec:
-  type: NodePort
+  # type: NodePort
   selector:
     app: rest-backend
     tier: backend
