@@ -137,6 +137,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rest-service
+  type: NodePort
   labels:
     app: rest-backend
     tier: backend
