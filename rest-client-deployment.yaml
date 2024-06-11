@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-62
+        image: daniel135dang/client:1.0.0-64
         ports:
         - containerPort: 3000
         env:
@@ -133,7 +133,6 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      # nodePort: 30007
 ---
 apiVersion: v1
 kind: Service
@@ -143,7 +142,6 @@ metadata:
     app: rest-backend
     tier: backend
 spec:
-  type: LoadBalancer
   selector:
     app: rest-backend
     tier: backend
@@ -151,4 +149,3 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-      # nodePort: 30008
