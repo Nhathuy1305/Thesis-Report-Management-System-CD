@@ -16,23 +16,23 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-64
+        image: daniel135dang/client:1.0.0-65
         ports:
         - containerPort: 3000
-        env:
-          - name: REACT_APP_SERVICE_LIST
-            value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
-          - name: REACT_APP_BACKEND_HOST
-            value: "http://192.168.100.105:31000"
-      #   volumeMounts:
-      #   - name: app-config-volume
-      #     mountPath: /usr/share/nginx/html/config.js
-      #     subPath: config.js
-      #     readOnly: true
-      # volumes:
-      # - name: app-config-volume
-      #   configMap:
-      #     name: app-config
+        # env:
+        #   - name: REACT_APP_SERVICE_LIST
+        #     value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
+        #   - name: REACT_APP_BACKEND_HOST
+        #     value: "http://192.168.100.105:31000"
+        volumeMounts:
+        - name: app-config-volume
+          mountPath: /usr/share/nginx/html/config.js
+          subPath: config.js
+          readOnly: true
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: app-config
 ---
 apiVersion: apps/v1
 kind: Deployment
