@@ -26,7 +26,7 @@ spec:
         #     value: "http://192.168.100.105:31000"
         volumeMounts:
         - name: app-config-volume
-          mountPath: /usr/share/nginx/html/config.js
+          mountPath: /app/config.js
           subPath: config.js
           readOnly: true
       volumes:
