@@ -137,7 +137,7 @@ metadata:
     app: rest-backend
     tier: backend
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
   selector:
     app: rest-backend
     tier: backend
