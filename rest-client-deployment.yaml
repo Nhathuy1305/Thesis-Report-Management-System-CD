@@ -54,7 +54,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: rest-backend
-        image: daniel135dang/rest:1.0.0-10
+        image: daniel135dang/rest:1.0.0-11
         ports:
         - containerPort: 5000
         volumeMounts:
