@@ -54,7 +54,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: rest-backend
-        image: daniel135dang/rest:1.0.0-8
+        image: daniel135dang/rest:1.0.0-9
         ports:
         - containerPort: 5000
         volumeMounts:
@@ -98,10 +98,7 @@ spec:
                 name: services-config
                 key: POSTGRES_DB
           - name: ROOT_DIR
-            valueFrom:
-              configMapKeyRef:
-                name: services-config
-                key: ROOT_DIR
+            value: "mnt"
           - name: REACT_APP_SERVICE_LIST
             value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
           - name: GUIDELINES_LIST
