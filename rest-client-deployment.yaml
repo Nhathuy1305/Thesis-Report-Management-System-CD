@@ -59,7 +59,7 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: rest-file
-          mountPath: /mnt/rest/files
+          mountPath: /app/rest/files
         - name: google-credentials
           mountPath: /app/google_credentials.json
           subPath: google_credentials.json
@@ -98,7 +98,7 @@ spec:
                 name: services-config
                 key: POSTGRES_DB
           - name: ROOT_DIR
-            value: "mnt"
+            value: "app"
           - name: REACT_APP_SERVICE_LIST
             value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
           - name: GUIDELINES_LIST
