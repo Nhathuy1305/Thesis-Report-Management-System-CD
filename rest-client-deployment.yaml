@@ -135,7 +135,7 @@ metadata:
     app: rest-backend
     tier: backend
 spec:
-  # type: LoadBalancer
+  type: NodePort
   selector:
     app: rest-backend
     tier: backend
@@ -143,3 +143,4 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 30010
