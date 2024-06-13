@@ -125,7 +125,7 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      nodePort: 30000
+      nodePort: 30005
 ---
 apiVersion: v1
 kind: Service
