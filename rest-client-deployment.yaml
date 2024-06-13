@@ -97,6 +97,16 @@ spec:
               configMapKeyRef:
                 name: services-config
                 key: POSTGRES_DB
+          - name: RABBITMQ_USER
+            valueFrom:
+              configMapKeyRef:
+                name: services-config
+                key: RABBITMQ_USER
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: services-config
+                key: RABBITMQ_PASSWORD
           - name: ROOT_DIR
             value: "/app"
           - name: REACT_APP_SERVICE_LIST
