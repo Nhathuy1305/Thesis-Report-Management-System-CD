@@ -97,7 +97,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: page-count
-        image: daniel135dang/page_count:1.0.0-6
+        image: daniel135dang/page_count:1.0.0-7
         ports:
         - containerPort: 6004
         volumeMounts:
