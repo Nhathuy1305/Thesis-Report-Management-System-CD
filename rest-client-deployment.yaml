@@ -16,18 +16,18 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-83
+        image: daniel135dang/client:1.0.0-84
         ports:
         - containerPort: 3000
-        volumeMounts:
-        - name: app-config-volume
-          mountPath: /app/config.js
-          subPath: config.js
-          readOnly: true
-      volumes:
-      - name: app-config-volume
-        configMap:
-          name: app-config
+      #   volumeMounts:
+      #   - name: app-config-volume
+      #     mountPath: /app/config.js
+      #     subPath: config.js
+      #     readOnly: true
+      # volumes:
+      # - name: app-config-volume
+      #   configMap:
+      #     name: app-config
 ---
 apiVersion: apps/v1
 kind: Deployment
