@@ -19,6 +19,9 @@ spec:
         image: daniel135dang/client:1.0.0-84
         ports:
         - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: app-config
       #   volumeMounts:
       #   - name: app-config-volume
       #     mountPath: /app/config.js
