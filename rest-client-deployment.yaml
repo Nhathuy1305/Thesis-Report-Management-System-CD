@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-84
+        image: daniel135dang/client:1.0.0-85
         ports:
         - containerPort: 3000
         envFrom:
