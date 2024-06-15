@@ -253,7 +253,7 @@ spec:
           secretName: google-credentials
       containers:
       - name: grammar
-        image: daniel135dang/grammar:1.0.0-15
+        image: daniel135dang/grammar:1.0.0-17
         ports:
         - containerPort: 6009
         volumeMounts:
