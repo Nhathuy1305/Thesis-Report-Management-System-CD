@@ -6,3 +6,4 @@ citation
 table_figure_detection
 grammar
 format_check
+word_frequency
