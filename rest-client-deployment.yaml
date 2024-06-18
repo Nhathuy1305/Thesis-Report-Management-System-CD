@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: client-frontend-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: client-frontend
@@ -37,7 +37,7 @@ kind: Deployment
 metadata:
   name: rest-backend-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: rest-backend
