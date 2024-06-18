@@ -53,23 +53,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: table-of-content-service
-  annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/path: '/metrics'
-    prometheus.io/port: '6005'
-spec:
-  selector:
-    app: table-of-content
-  ports:
-    - name: table-of-content
-      protocol: TCP
-      port: 6005
-      targetPort: 6005
----
-apiVersion: v1
-kind: Service
-metadata:
   name: citation-service
   annotations:
     prometheus.io/scrape: 'true'
@@ -151,4 +134,3 @@ spec:
       protocol: TCP
       port: 6010
       targetPort: 6010
----
