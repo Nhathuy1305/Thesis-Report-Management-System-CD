@@ -1,7 +1,6 @@
 chapter_summarization
 chapter_title
 page_count
-table_of_content
 citation
 table_figure_detection
 grammar
