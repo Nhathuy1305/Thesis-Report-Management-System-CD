@@ -130,8 +130,7 @@ metadata:
     app: client-frontend
     tier: frontend
 spec:
-  # type: NodePort
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: client-frontend
     tier: frontend
@@ -139,7 +138,7 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      # nodePort: 30005
+      nodePort: 30005
 ---
 apiVersion: v1
 kind: Service
