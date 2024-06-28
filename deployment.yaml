@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: chapter-summarization-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: chapter-summarization
@@ -43,7 +43,7 @@ kind: Deployment
 metadata:
   name: chapter-title-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: chapter-title
@@ -82,7 +82,7 @@ kind: Deployment
 metadata:
   name: page-count-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: page-count
@@ -121,7 +121,7 @@ kind: Deployment
 metadata:
   name: citation-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: citation
@@ -160,7 +160,7 @@ kind: Deployment
 metadata:
   name: table-figure-detection-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: table-figure-detection
@@ -199,7 +199,7 @@ kind: Deployment
 metadata:
   name: grammar-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: grammar
@@ -238,7 +238,7 @@ kind: Deployment
 metadata:
   name: format-check-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: format-check
@@ -277,7 +277,7 @@ kind: Deployment
 metadata:
   name: word-frequency-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: word-frequency
@@ -316,7 +316,7 @@ kind: Deployment
 metadata:
   name: table-of-content-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: table-of-content
