@@ -16,32 +16,21 @@ spec:
     spec:
       containers:
       - name: client
-        image: daniel135dang/client:1.0.0-26
+        image: daniel135dang/client:1.0.0-27
         ports:
         - containerPort: 3000
-        env:
-        - name: REACT_APP_SERVICE_LIST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REACT_APP_SERVICE_LIST
-        - name: REACT_APP_BACKEND_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REACT_APP_BACKEND_HOST
         # envFrom:
         #   - configMapRef:
         #       name: app-config
-        # volumeMounts:
-        # - name: app-config-volume
-        #   mountPath: /app/config.js
-        #   subPath: config.js
-        #   readOnly: true
-      # volumes:
-      # - name: app-config-volume
-      #   configMap:
-      #     name: app-config
+        volumeMounts:
+        - name: app-config-volume
+          mountPath: /app/config.js
+          subPath: config.js
+          readOnly: true
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: app-config
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -124,15 +113,9 @@ spec:
           - name: ROOT_DIR
             value: "/app"
           - name: REACT_APP_SERVICE_LIST
-            valueFrom:
-              configMapKeyRef:
-                name: app-config
-                key: REACT_APP_SERVICE_LIST
+            value: "word_frequency,chapter_title,format_check,chapter_summarization,page_count,table_of_content,citation,table_figure_detection,grammar"
           - name: GUIDELINES_LIST
-            valueFrom:
-              configMapKeyRef:
-                name: app-config
-                key: GUIDELINES_LIST
+            value: "chapter_title,format_check,page_count"
           - name: GOOGLE_CLOUD_STORAGE_BUCKET
             valueFrom:
               configMapKeyRef:
@@ -165,7 +148,7 @@ metadata:
     app: rest-backend
     tier: backend
 spec:
-  # type: NodePort
+  type: NodePort
   selector:
     app: rest-backend
     tier: backend
@@ -173,4 +156,4 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-      # nodePort: 30010
+      nodePort: 30010
